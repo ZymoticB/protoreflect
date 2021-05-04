@@ -633,70 +633,70 @@ type parseResult struct {
 
 func (r *parseResult) getFileNode(f *dpb.FileDescriptorProto) ast.FileDeclNode {
 	if r.nodes == nil {
-		return ast.NewNoSourceNode(f.GetName())
+		return ast.NewNoSourceNode(f.Name)
 	}
 	return r.nodes[f].(ast.FileDeclNode)
 }
 
 func (r *parseResult) getOptionNode(o *dpb.UninterpretedOption) ast.OptionDeclNode {
 	if r.nodes == nil {
-		return ast.NewNoSourceNode(r.fd.GetName())
+		return ast.NewNoSourceNode(r.fd.Name)
 	}
 	return r.nodes[o].(ast.OptionDeclNode)
 }
 
 func (r *parseResult) getOptionNamePartNode(o *dpb.UninterpretedOption_NamePart) ast.Node {
 	if r.nodes == nil {
-		return ast.NewNoSourceNode(r.fd.GetName())
+		return ast.NewNoSourceNode(r.fd.Name)
 	}
 	return r.nodes[o]
 }
 
 func (r *parseResult) getFieldNode(f *dpb.FieldDescriptorProto) ast.FieldDeclNode {
 	if r.nodes == nil {
-		return ast.NewNoSourceNode(r.fd.GetName())
+		return ast.NewNoSourceNode(r.fd.Name)
 	}
 	return r.nodes[f].(ast.FieldDeclNode)
 }
 
 func (r *parseResult) getExtensionRangeNode(e *dpb.DescriptorProto_ExtensionRange) ast.RangeDeclNode {
 	if r.nodes == nil {
-		return ast.NewNoSourceNode(r.fd.GetName())
+		return ast.NewNoSourceNode(r.fd.Name)
 	}
 	return r.nodes[e].(ast.RangeDeclNode)
 }
 
 func (r *parseResult) getMessageReservedRangeNode(rr *dpb.DescriptorProto_ReservedRange) ast.RangeDeclNode {
 	if r.nodes == nil {
-		return ast.NewNoSourceNode(r.fd.GetName())
+		return ast.NewNoSourceNode(r.fd.Name)
 	}
 	return r.nodes[rr].(ast.RangeDeclNode)
 }
 
 func (r *parseResult) getEnumNode(e *dpb.EnumDescriptorProto) ast.Node {
 	if r.nodes == nil {
-		return ast.NewNoSourceNode(r.fd.GetName())
+		return ast.NewNoSourceNode(r.fd.Name)
 	}
 	return r.nodes[e]
 }
 
 func (r *parseResult) getEnumValueNode(e *dpb.EnumValueDescriptorProto) ast.EnumValueDeclNode {
 	if r.nodes == nil {
-		return ast.NewNoSourceNode(r.fd.GetName())
+		return ast.NewNoSourceNode(r.fd.Name)
 	}
 	return r.nodes[e].(ast.EnumValueDeclNode)
 }
 
 func (r *parseResult) getEnumReservedRangeNode(rr *dpb.EnumDescriptorProto_EnumReservedRange) ast.RangeDeclNode {
 	if r.nodes == nil {
-		return ast.NewNoSourceNode(r.fd.GetName())
+		return ast.NewNoSourceNode(r.fd.Name)
 	}
 	return r.nodes[rr].(ast.RangeDeclNode)
 }
 
 func (r *parseResult) getMethodNode(m *dpb.MethodDescriptorProto) ast.RPCDeclNode {
 	if r.nodes == nil {
-		return ast.NewNoSourceNode(r.fd.GetName())
+		return ast.NewNoSourceNode(r.fd.Name)
 	}
 	return r.nodes[m].(ast.RPCDeclNode)
 }
@@ -760,7 +760,7 @@ func parseProto(filename string, r io.Reader, errs *errorHandler, validate, crea
 	if lx.res == nil || len(lx.res.Children()) == 0 {
 		// nil AST means there was an error that prevented any parsing
 		// or the file was empty; synthesize empty non-nil AST
-		lx.res = ast.NewEmptyFileNode(filename)
+		lx.res = ast.NewEmptyFileNode(&filename)
 	}
 	if lx.eof != nil {
 		lx.res.FinalComments = lx.eof.LeadingComments()

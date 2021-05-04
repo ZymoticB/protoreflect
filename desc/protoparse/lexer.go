@@ -151,7 +151,7 @@ var keywords = map[string]int{
 
 func (l *protoLex) cur() SourcePos {
 	return SourcePos{
-		Filename: l.filename,
+		Filename: &l.filename,
 		Offset:   l.offset,
 		Line:     l.lineNo + 1,
 		Col:      l.colNo + 1,
@@ -180,7 +180,7 @@ func (l *protoLex) adjustPos(consumedChars ...rune) {
 func (l *protoLex) prev() *SourcePos {
 	if l.prevSym == nil {
 		return &SourcePos{
-			Filename: l.filename,
+			Filename: &l.filename,
 			Offset:   0,
 			Line:     1,
 			Col:      1,
@@ -390,7 +390,7 @@ func (l *protoLex) Lex(lval *protoSymType) int {
 func (l *protoLex) posRange() ast.PosRange {
 	return ast.PosRange{
 		Start: SourcePos{
-			Filename: l.filename,
+			Filename: &l.filename,
 			Offset:   l.prevOffset,
 			Line:     l.prevLineNo + 1,
 			Col:      l.prevColNo + 1,

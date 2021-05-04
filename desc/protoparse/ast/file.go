@@ -62,7 +62,7 @@ func NewFileNode(syntax *SyntaxNode, decls []FileElement) *FileNode {
 	}
 }
 
-func NewEmptyFileNode(filename string) *FileNode {
+func NewEmptyFileNode(filename *string) *FileNode {
 	return &FileNode{
 		compositeNode: compositeNode{
 			children: []Node{NewNoSourceNode(filename)},

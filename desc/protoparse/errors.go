@@ -125,7 +125,8 @@ func (e ErrorWithSourcePos) Error() string {
 // proto source that caused the error.
 func (e ErrorWithSourcePos) GetPosition() SourcePos {
 	if e.Pos == nil {
-		return SourcePos{Filename: "<input>"}
+		file := "<input>"
+		return SourcePos{Filename: &file}
 	}
 	return *e.Pos
 }
